@@ -1,0 +1,9 @@
+ext {
+    versions = [
+            'datafaker': '1.9.0',
+            'mapstruct': '1.5.5.Final',
+            'openapitools': '6.6.0',
+            'springdoc':'1.6.0',
+            'liquibase': '4.23.1'
+    ]
+}

@@ -1,0 +1,77 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.14'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.openapi.generator' version '6.6.0'
+	id "org.springdoc.openapi-gradle-plugin" version "1.6.0"
+}
+
+apply from: 'version.gradle'
+
+group = 'com.book.library'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation "net.datafaker:datafaker:${versions.datafaker}"
+	implementation "org.mapstruct:mapstruct:${versions.mapstruct}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${versions.mapstruct}"
+	implementation "org.liquibase:liquibase-core:${versions.liquibase}"
+//	implementation "org.openapitools:openapi-generator:${versions.openapitools}"
+//	implementation "org.springdoc:springdoc-openapi-gradle-plugin:${versions.springdoc}"
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+//	implementation 'io.springfox:springfox-swagger2:2.8.0'
+//	implementation 'io.springfox:springfox-swagger-ui:2.8.0'
+//	implementation 'org.openapitools:jackson-databind-nullable:0.1.0'
+}
+
+configurations.all {
+	exclude module: 'slf4j-simple'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+//openApi {
+//	apiDocsUrl.set("http://localhost:8088/v3/api-docs")
+//	outputDir.set(file("$rootDir"))
+//	outputFileName.set("api.yaml")
+//}
+//
+//compileJava.dependsOn tasks.named("openApiGenerate")
+//
+//openApiGenerate {
+//	generatorName.set("java")
+//	inputSpec.set("$rootDir/api.yaml".toString())
+//	outputDir.set("$buildDir/generated/openapi")
+//	apiPackage.set("{$group}.controller")
+//	invokerPackage.set("$group")
+//	modelPackage.set("{$group}.model")
+//	groupId = "$group"
+//	configOptions.set([
+//			dateLibrary: "java8"
+//	])
+//	skipValidateSpec.set(true)
+//}
